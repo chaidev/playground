@@ -8,8 +8,34 @@ import java.util.stream.Collectors;
 
 class ArrayTest01 {
     public static void main(String[] args) {
-        int[] inta = new int[] { -2, 3, 1, 1, 2, 5 };
-        System.out.println(findMaxIntV7(inta));
+        // int[] inta = new int[] { -2, 3, 1, 1, 2, 5 };
+        System.out.println(findMaxIntV5(generateInput()));
+    }
+
+    public static int[] convertIntegers(List<Integer> integers) {
+        int[] ret = new int[integers.size()];
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = integers.get(i).intValue();
+        }
+        return ret;
+    }
+
+    private static int[] generateInput() {
+        List<Integer> output = new ArrayList<>();
+        for (int i = Integer.MIN_VALUE / 100; i < Integer.MAX_VALUE / 100; i++) {
+            output.add(i);
+        }
+        int[] outputArray = new int[output.size() - 1];
+        for (int i = 0; i < output.size(); i++) {
+            if (output.get(i) == 2352335) {
+                continue;
+            }
+            System.out.println(i);
+            outputArray[i] = output.get(i);
+        }
+
+        System.out.println(output.size() + " : " + outputArray.length + " => " + outputArray[outputArray.length-2]);
+        return outputArray;
     }
 
     /*
@@ -122,7 +148,7 @@ class ArrayTest01 {
         return result;
     }
 
-    //100%
+    // 100%
     static int findMaxIntV6(int[] A) {
         int N = A.length;
         Set<Integer> set = new HashSet<>();
@@ -140,9 +166,10 @@ class ArrayTest01 {
         return 0;
     }
 
-    //55% performance 0
+    // 55% performance 0
     static int findMaxIntV7(int[] A) {
-        Set<Integer> myInts = Arrays.stream(A).boxed().filter(i -> i > 0).sorted().distinct().collect(Collectors.toSet());
+        Set<Integer> myInts = Arrays.stream(A).boxed().filter(i -> i > 0).sorted().distinct()
+                .collect(Collectors.toSet());
         for (int i = 1; i <= myInts.size() + 1; i++) {
             if (!myInts.contains(i)) {
                 return i;
